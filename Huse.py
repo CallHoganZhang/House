@@ -29,16 +29,19 @@ from keras.models import Sequential
 from keras.layers.core import Dense,Activation
 warnings.filterwarnings("ignore")
 
-
+###################
 listing_path = 'listings.csv'
 neighbourhoods_path = 'neighbourhoods.csv'
 listing = pd.read_csv(listing_path,encoding='utf-8')
 neighbourhoods = pd.read_csv(neighbourhoods_path)
-print(listing.head())
-print(neighbourhoods.head())
+#print(listing.head())
+#print(neighbourhoods.head())
 listing.info()
-listing['neighbourhood'].sample(10)
+#listing['neighbourhood'].sample(10)
 a = listing['neighbourhood']
+
+###################
+
 def colum_to_str(data):
     neighbourhood = []
     a = data.str.findall('\w+').tolist()
@@ -47,9 +50,9 @@ def colum_to_str(data):
     return neighbourhood
 
 listing['neighbourhood'] = colum_to_str(a)
-print(listing['neighbourhood'].unique())
+#print(listing['neighbourhood'].unique())
 
-print(listing['room_type'].unique())
+#print(listing['room_type'].unique())
 new_columns = ['price','minimum_nights','number_of_reviews','calculated_host_listings_count','availability_365']
 data = listing[new_columns]
 
@@ -82,7 +85,7 @@ print('room_type', a)
 
 plt.bar([0,1,2], data)
 plt.show()
-
+####################
 
 
 listing[['host_name','name']].groupby('host_name').count().sort_values(by='name', ascending=False).head()
@@ -110,6 +113,9 @@ plt.pie(data2,labels=label2,autopct='%.2f%%',explode=explode,startangle=90,
 plt.legend(loc='best',shadow=True,fontsize=11)
 plt.savefig('./distrubte.png')
 
+#############
+
+
 a = listing[['neighbourhood','price']].groupby(['neighbourhood','price']).count().reset_index()
 for i in label2:
     plt.hist(a[a['neighbourhood']==i].price)
@@ -117,6 +123,8 @@ for i in label2:
     plt.savefig('./'+str(i)+'.png')
     plt.show()
     
+    
+################
 price_is_0 = listing[listing['price']==0] #exception
 print(price_is_0)
 
@@ -134,7 +142,7 @@ avg_review = listing_dealt['number_of_reviews'].quantile(0.9)
 print('avg_review', avg_review)
 #
 
-
+###########################################
 import jieba
 from wordcloud import WordCloud
 
@@ -179,7 +187,7 @@ w = WordCloud(scale=4,background_color='white', font_path='SIMLI.TTF',
              max_words = 2000,max_font_size = 20,random_state=20).generate(resultword[:200])
 w.to_file('result.jpg')
 
-
+#################################################
 def get_con(df):
     subsets=['price','minimum_nights','number_of_reviews','reviews_per_month','calculated_host_listings_count','availability_365']
     data={}
@@ -198,7 +206,7 @@ def get_con(df):
 
 df2=get_con(listing)
 df2.to_csv('eval.csv')
-
+##################################
 
 def data_processing_modeling(df):
     model_df = df.drop('neighbourhood_group',axis = 1)
