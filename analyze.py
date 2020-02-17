@@ -72,9 +72,9 @@ def  plot_rigion_proportion(data,explode):
     plt.savefig('./distrubte.png')
 
 def showRoomStyle(data):
+    print('room_type :')
+    print(data['room_type'].unique())
     data = data['room_type'].value_counts().tolist()
-    room_type = data['room_type'].unique()
-    print('room_type :', room_type)
     plt.bar([0,1,2], data)
     plt.show()
 
