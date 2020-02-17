@@ -40,9 +40,8 @@ def get_con(df):
         data[i].append(df[i].quantile(0.75)-df[i].quantile(0.25))  #分位数
         data[i].append(df[i].median())
     data_df=pd.DataFrame(data,index=['偏度','峰度','均值','标准差','变异系数','极差','四分位距','中位数'],columns=subsets)
-    return data_df.T
-
-
+    data_df =  data_df.T
+    data_df.to_csv('eval.csv')
 
 def plotIndex(data):
     for i in range(len(data.columns)):
@@ -72,12 +71,22 @@ def  plot_rigion_proportion(data,explode):
     plt.legend(loc='best',shadow=True,fontsize=11)
     plt.savefig('./distrubte.png')
 
+def showRoomStyle(data):
+    data = data['room_type'].value_counts().tolist()
+    room_type = data['room_type'].unique()
+    print('room_type :', room_type)
+    plt.bar([0,1,2], data)
+    plt.show()
 
-#int_columns, str_columns = is_number(readFile.listing)
-#plotIndex(readFile.listing[readFile.new_columns])
+
+if __name__ == '__main__':
+
+#    int_columns, str_columns = is_number(readFile.listing)
+#    plotIndex(readFile.listing[readFile.new_columns])
+        
+#    explode = list(show_explode_situtation(readFile.listing.neighbourhood.value_counts()).values())
+#    plot_rigion_proportion(readFile.listing, explode)
     
-#explode = list(show_explode_situtation(readFile.listing.neighbourhood.value_counts()).values())
-#plot_rigion_proportion(readFile.listing, explode)
-
-#df2=get_con(readFile.listing)
-#df2.to_csv('eval.csv')
+#    df2 = get_con(readFile.listing)
+    
+#    showRoomStyle(readFile.listing)

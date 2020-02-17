@@ -29,19 +29,29 @@ def deal_with_meanless_word(data):
             mean_words[i] = data[i]
     return mean_words
 
-popular_words = jieba_cut(readFile.reviews_top90.name.astype('str'))
-mean_words = deal_with_meanless_word(popular_words)
-mean_words_df = pd.Series(mean_words).sort_values(ascending=False)
-mean_words_df_top15 = mean_words_df.head(15)
-print(mean_words_df_top15)
-#plt.figure(figsize=(15,8))
-#plt.title('最受欢迎的房间中描述关键词')
-mean_words_df_top15.plot(kind='bar')
 
-wordcloud_use = ' '.join(mean_words.keys())
-resultword=re.sub("[A-Za-z0-9]", "",wordcloud_use) 
+def plot_mean_word(data):
+    str_data = data.name.astype('str')
+    popular_words = jieba_cut(str_data)
+    mean_words = deal_with_meanless_word(popular_words)
+    mean_words_df = pd.Series(mean_words).sort_values(ascending=False)
+    mean_words_df_top15 = mean_words_df.head(15)
+    print('top 15 mean words')
+    print(mean_words_df_top15)
+    
+    plt.figure(figsize=(15,8))
+    plt.title('最受欢迎的房间中描述关键词')
+    mean_words_df_top15.plot(kind='bar')
+    
+    wordcloud_use = ' '.join(mean_words.keys())
+    resultword=re.sub("[A-Za-z0-9]", "",wordcloud_use) 
+    
+    w = WordCloud(scale=4,background_color='white', font_path='SIMLI.TTF', 
+                 max_words = 2000,max_font_size = 20,random_state=20).generate(resultword[:200])
+    w.to_file('result.jpg')
+    
+if __name__ == '__main__':
 
-w = WordCloud(scale=4,background_color='white', font_path='SIMLI.TTF', 
-             max_words = 2000,max_font_size = 20,random_state=20).generate(resultword[:200])
-w.to_file('result.jpg')
+    plot_mean_word(readFile.reviews_top90)
+
 
