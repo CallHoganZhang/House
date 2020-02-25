@@ -9,4 +9,7 @@ In model_processing.py, I use some model SVM,RandomForest,AdaBoost in order to
 compare their difference.As result,you can see these accuracy respectively.
 
 When you run the analyse.py,this file will create regional distribution scale pictue.
-in Beijing city and you can get there picture in current area. 
+in Beijing city and you can get there picture in current area.
+
+And when you in House.py,you can run thie file in the jupyter.This will make you 
+understand the process of this script.  
