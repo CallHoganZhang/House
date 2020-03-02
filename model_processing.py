@@ -5,7 +5,7 @@
 """
 
 import readFile
-from sklearn.preprocessing import LabelEncoder,OneHotEncoder,MinMaxScaler
+from sklearn.preprocessing import LabelEncoder,MinMaxScaler
 from sklearn.ensemble import AdaBoostRegressor
 from sklearn.svm import SVR
 from sklearn.ensemble import RandomForestRegressor
